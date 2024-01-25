@@ -707,10 +707,13 @@ compile_curl() {
 }
 
 install_curl() {
-    mkdir -p "${RELEASE_DIR}/release/"
+    mkdir -p "${RELEASE_DIR}/release/curl-linux-${arch}"
 
     ls -l src/curl
-    cp -pf src/curl "${RELEASE_DIR}/release/curl-linux-${arch}"
+    cp -pf src/curl "${RELEASE_DIR}/release/curl-linux-${arch}/curl"
+    cp -a /data/curl/include/ "${RELEASE_DIR}/release/curl-linux-${arch}/include/"
+    cp -a /data/curl/lib/ "${RELEASE_DIR}/release/curl-linux-${arch}/lib/"
+    cp -aL lib/.libs/ "${RELEASE_DIR}/release/curl-linux-${arch}/lib/"
 
     if [ ! -f "${RELEASE_DIR}/release/version.txt" ]; then
         echo "${CURL_VERSION}" > "${RELEASE_DIR}/release/version.txt"

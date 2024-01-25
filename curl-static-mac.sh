@@ -550,7 +550,7 @@ compile_curl() {
 }
 
 install_curl() {
-    mkdir -p "${HOME}/release/"
+    mkdir -p "${HOME}/release/curl-macos-${arch}"
 
     ls -l src/curl
     file src/curl
@@ -558,7 +558,10 @@ install_curl() {
     sha256sum src/curl
     src/curl -V || true
 
-    cp -f src/curl "${HOME}/release/curl-macos-${arch}"
+    cp -f src/curl "${HOME}/release/curl-macos-${arch}/curl"
+    cp -a "${PREFIX}/include/" "${HOME}/release/curl-macos-${arch}/include/"
+    cp -a "${PREFIX}/lib/" "${HOME}/release/curl-macos-${arch}/lib/"
+    cp -aL lib/.libs/ "${HOME}/release/curl-macos-${arch}/lib"
 
     if [ ! -f "${HOME}/version.txt" ]; then
         echo "${CURL_VERSION}" > "${HOME}/version.txt"
